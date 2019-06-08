@@ -63,3 +63,21 @@ $ ./setenvclient.sh
 ```
 $ python sugleclient.py
 ```
+
+### Running on a Network
+
+- First, you need to find your ip address. You can find it from a terminal using:
+
+```
+$ ifconfig
+```
+
+- Edit the file, `runnameserver.sh` and change `localhost` to your ip address. For example, if your ip address is `192.168.1.96`. Then your `runnameserver.sh` should look like below:
+
+```
+#!/bin/bash
+HOST=192.168.1.96
+pyro4-ns -n $HOST
+```
+
+- The rest of the steps are the same as above. One of the computer must run `runnameserver.sh` and the python file `sugleserver.py`. 
