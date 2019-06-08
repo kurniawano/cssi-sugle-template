@@ -1,7 +1,7 @@
 import sys
 import Pyro4
 import Pyro4.util
-from sugglework import SugleAccount
+from suglework import SugleAccount
 import time
 
 
