@@ -108,9 +108,9 @@ class SugleNetwork(object):
             return False
 
 
-def run_pyro_daemon(network_name):
+def run_pyro_daemon(network_name, ipaddress):
     try:
-        with Pyro4.Daemon() as daemon:
+        with Pyro4.Daemon(ipaddress) as daemon:
             ns = Pyro4.locateNS()
             uri = daemon.register(SugleNetwork)
             ns.register('net.sugle.' + network_name, uri)
@@ -121,4 +121,5 @@ def run_pyro_daemon(network_name):
 if __name__ == "__main__":
     Pyro4.config.SERIALIZERS_ACCEPTED.add('pickle')
     network_name = 'oka'
-    run_pyro_daemon(network_name)
+    ipaddress = 'localhost'
+    run_pyro_daemon(network_name, ipaddress)
