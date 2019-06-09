@@ -30,20 +30,20 @@ After downloading the source code, follow the steps below:
 ```
 $ cd ~/Documents/cssi-python-class-template
 ```
+- And go to the folder you download the source code. You need to set the environment so that the Pyro accepts `pickle` for its object serialization. To do so run the script `setenvserver.sh`. You only need to run this once.
+
+```
+$ chmod 755 setenvserver.sh
+$ source ./setenvserver.sh
+```
 
 - In this terminal, run Pyro4 nameserver.
 
 ```
 $ chmod 755 runnameserver.sh
-$ ./runnameserver.sh
+$ ./runnameserver.sh &
 ```
 
-- Open **another terminal**, and go to the folder you download the source code. You need to set the environment so that the Pyro accepts `pickle` for its object serialization. To do so run the script `setenvserver.sh`. You only need to run this once.
-
-```
-$ chmod 755 setenvserver.sh
-$ ./setenvserver.sh
-```
 
 - In the same terminal, run the python file `suglserver.py`. This runs the server with the class `SugleNetwork` registered as a PyroObject.
 
@@ -55,7 +55,7 @@ $ python sugleserver.py
 
 ```
 $ chmod 755 setenvclient.sh
-$ ./setenvclient.sh
+$ source ./setenvclient.sh
 ```
 
 - In the same terminal, run the python file `sugleclient.py`. This runs the client program that will connect to `SugleNetwork`. This files requires that you have a working `suglework.py` containing `SugleAccount` class definition.
@@ -78,6 +78,36 @@ $ ifconfig
 #!/bin/bash
 HOST=192.168.1.96
 pyro4-ns -n $HOST
+```
+
+- Edit the file, `sugleserver.py`, and scroll down to the second last line until you see the variables `network_name` and `ipaddress`.
+
+```
+network_name = 'oka'
+ipaddress = 'localhost'
+run_pyro_daemon(network_name, ipaddress)
+```
+
+Change the network name and ip address. For example,
+
+```
+network_name = 'foo'
+ipaddress = '192.168.1.96'
+run_pyro_daemon(network_name, ipaddress)
+```
+
+- Edit the file, `sugleclient.py` and modify the network name:
+
+```
+# You can change the network name to create a separate network
+network_name = 'oka'
+```
+
+to
+
+```
+# You can change the network name to create a separate network
+network_name = 'foo'
 ```
 
 - The rest of the steps are the same as above. One of the computer must run `runnameserver.sh` and the python file `sugleserver.py`. 
